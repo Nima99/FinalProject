@@ -1,8 +1,9 @@
-# Catch a carShuffle
--Remix the way you binge watch.
+# Catch my vin
+-know your car.
+-know all the cars
 
 # Description
-A Website loaded with every single data you need for a car. users will have to login with their google/facebook account to input their personal vin # to add to the compare table. The compare table will allow the user to find a scroll downbar of all the makes and models of most of the cars we see today.
+A Website loaded with every single data you need for a car. users will have to login with their google/facebook account to input their personal vin # to either add on or search for all the makes and models of most of the cars we see today.
 
 # Sketch
 
