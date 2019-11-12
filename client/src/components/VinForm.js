@@ -1,15 +1,14 @@
 import React from 'react';
 
-
-class DetailsCard extends React.Component{
+class VinForm extends React.Component{
     render(){
         return(
             <div>
-               DetailsCard
+                VinForm
             </div>
         )
     }
 
 }
 
-export default DetailsCard;
+export default VinForm;
