@@ -7,7 +7,7 @@ A Website loaded with every single data you need for a car. users will have to l
 
 # Sketch
 
-
+https://files.slack.com/files-pri/THMCEKQRF-FQGB4LLGP/vin_finder.png
 
 # APIS USED
 https://vpic.nhtsa.dot.gov/api/ -can find make model and parts for each and every car
