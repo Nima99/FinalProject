@@ -1,14 +1,12 @@
 import React from 'react';
 import ModelForm from './ModelForm';
-import VinForm from './VinForm';
+// import VinForm from './VinForm';
 
-class FormContainer extends React.Component{
-    render(){
-        return(
+class FormContainer extends React.Component {
+    render() {
+        return (
             <div>
-                <ModelForm/>
-                <VinForm/>
-                <button/>
+                <ModelForm />
             </div>
         )
     }

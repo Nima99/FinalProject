@@ -1,197 +1,133 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
+import React, { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
-import Checkbox from '@material-ui/core/Checkbox';
-import Chip from '@material-ui/core/Chip';
+import axios from 'axios';
+import makeListjson from '../makes';
+import modelListjson from '../model';
 
 const useStyles = makeStyles(theme => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-    maxWidth: 300,
-  },
-  chips: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  chip: {
-    margin: 2,
-  },
-  noLabel: {
-    marginTop: theme.spacing(3),
-  },
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
+    },
 }));
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
-
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-
 export default function ModelForm() {
-  const classes = useStyles();
-  const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
+    const classes = useStyles();
+    const [makeList, setMakeList] = useState([]);
+    const [make, setMake] = useState('');
+    const [modelList, setModelList] = useState([]);
+    const [model, setModel] = useState('');
+    const [year, setYear] = useState(2019);
 
-  const handleChange = event => {
-    setPersonName(event.target.value);
-  };
+    useEffect(() => {
+       axios({
+           method: 'GET',
+           url: `http://api.carmd.com/v3.0/make?year=${year}`,
+           headers: {
+            'content-type': 'application/json',
+            'authorization': 'Basic ODBkZTllMzctODQ4Ni00Y2YwLTliOTYtOTEzYWIwMWQyZDIy',
+            'partner-token': '6a0877d27766407c8f511fdfcd89babc',
 
-  const handleChangeMultiple = event => {
-    const { options } = event.target;
-    const value = [];
-    for (let i = 0, l = options.length; i < l; i += 1) {
-      if (options[i].selected) {
-        value.push(options[i].value);
-      }
+           }
+        })
+       .then(response => {
+           const makeResponse = response.data;
+           setMakeList(makeListjson.data);
+       })
+    }, [year])
+
+    useEffect(() => {
+        if (make){
+            axios({
+                method: 'GET',
+                url: `http://api.carmd.com/v3.0/model?year=${year}&make=${make}`,
+                headers: {
+                 'content-type': 'application/json',
+                 'authorization': 'Basic ODBkZTllMzctODQ4Ni00Y2YwLTliOTYtOTEzYWIwMWQyZDIy',
+                 'partner-token': '6a0877d27766407c8f511fdfcd89babc',
+     
+                }
+             })
+            .then(response => {
+                const makeResponse = response.data;
+                setModelList(modelListjson.data);
+            })
+        }
+      
+    }, [make, year])
+
+    const onChange = event => {
+        const { name, value } = event.target
+        if (name === "make") {
+            setMake(value)
+        } else if (name === "model") {
+            setModel(value)
+        } else if (name === "year") {
+            setYear(value)
+        }
+
+
     }
-    setPersonName(value);
-  };
 
-  return (
-    <div>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-mutiple-name-label">Name</InputLabel>
-        <Select
-          labelId="demo-mutiple-name-label"
-          id="demo-mutiple-name"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<Input />}
-          MenuProps={MenuProps}
-        >
-          {names.map(name => (
-            <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-mutiple-checkbox-label">Tag</InputLabel>
-        <Select
-          labelId="demo-mutiple-checkbox-label"
-          id="demo-mutiple-checkbox"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<Input />}
-          renderValue={selected => selected.join(', ')}
-          MenuProps={MenuProps}
-        >
-          {names.map(name => (
-            <MenuItem key={name} value={name}>
-              <Checkbox checked={personName.indexOf(name) > -1} />
-              <ListItemText primary={name} />
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-mutiple-chip-label">Chip</InputLabel>
-        <Select
-          labelId="demo-mutiple-chip-label"
-          id="demo-mutiple-chip"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<Input id="select-multiple-chip" />}
-          renderValue={selected => (
-            <div className={classes.chips}>
-              {selected.map(value => (
-                <Chip key={value} label={value} className={classes.chip} />
-              ))}
-            </div>
-          )}
-          MenuProps={MenuProps}
-        >
-          {names.map(name => (
-            <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <FormControl className={clsx(classes.formControl, classes.noLabel)}>
-        <Select
-          multiple
-          displayEmpty
-          value={personName}
-          onChange={handleChange}
-          input={<Input />}
-          renderValue={selected => {
-            if (selected.length === 0) {
-              return <em>Placeholder</em>;
-            }
+    return (
+        <div>
+            <FormControl className={classes.formControl}>
+                <InputLabel id="demo-simple-select-label">Make</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={make}
+                    name="make"
+                    onChange={onChange}
+                >
+                    {makeList && makeList.map((make, index) => {
+                        return <MenuItem key={index} value={make}>{make}</MenuItem>    
+                    })}
+                </Select>
+            </FormControl>
+            <FormControl className={classes.formControl}>
+                <InputLabel id="demo-simple-select-helper-label">Model</InputLabel>
+                <Select
+                    labelId="demo-simple-select-helper-label"
+                    id="demo-simple-select-helper"
+                    value={model}
+                    name="model"
+                    onChange={onChange}
+                >
+                   {modelList && modelList.map((model, index) => {
+                        return <MenuItem key={index} value={model}>{model}</MenuItem>    
+                    })}
+                </Select>
+            </FormControl>
+            <FormControl className={classes.formControl}>
+                <InputLabel id="demo-simple-select-helper-label">Year</InputLabel>
+                <Select
+                    labelId="demo-simple-select-helper-label"
+                    id="demo-simple-select"
+                    value={year}
+                    name="year"
+                    onChange={onChange}
+                     >
+                    <MenuItem value="">
+                        <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={2019}>2019</MenuItem>
+                    <MenuItem value={2018}>2018</MenuItem>
+                    <MenuItem value={2017}>2017</MenuItem>
+                </Select>
+                <FormHelperText></FormHelperText>
+            </FormControl>
 
-            return selected.join(', ');
-          }}
-          MenuProps={MenuProps}
-        >
-          <MenuItem disabled value="">
-            <em>Placeholder</em>
-          </MenuItem>
-          {names.map(name => (
-            <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <FormControl className={classes.formControl}>
-        <InputLabel shrink htmlFor="select-multiple-native">
-          Native
-        </InputLabel>
-        <Select
-          multiple
-          native
-          value={personName}
-          onChange={handleChangeMultiple}
-          inputProps={{
-            id: 'select-multiple-native',
-          }}
-        >
-          {names.map(name => (
-            <option key={name} value={name}>
-              {name}
-            </option>
-          ))}
-        </Select>
-      </FormControl>
-    </div>
-  );
+
+
+        </div>
+    );
 }
