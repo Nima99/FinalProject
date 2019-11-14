@@ -4,7 +4,7 @@ class VinForm extends React.Component{
     render(){
         return(
             <div>
-                VinForm
+                <VinForm/>
             </div>
         )
     }
