@@ -6,7 +6,9 @@ class FormContainer extends React.Component {
     render() {
         return (
             <div>
-                <ModelForm />
+                <div>
+                    ModelForm 
+                </div>
             </div>
         )
     }
