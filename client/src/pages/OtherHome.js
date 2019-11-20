@@ -25,7 +25,12 @@ class OtherHome extends React.Component {
         return (
             <Container maxWidth="sm" border="1" width="500" height="350">
 
-                <Grid container >
+                        <Grid>
+                            <header>VinFinder</header>
+                        </Grid>
+
+
+                <Grid style={{color: "red"}} container >
                     <Grid item xs={12}>
                         <p>Insert Vin Here</p>
                     </Grid>
@@ -34,7 +39,7 @@ class OtherHome extends React.Component {
                 <Grid container >
 
                     <Grid item xs={12}>
-                        <input 
+                        <input
                         value={this.state.Vin}
                         onChange={this.handleInputChange}
                          />
@@ -42,7 +47,7 @@ class OtherHome extends React.Component {
 
                 </Grid>
 
-                <Grid container >
+                <Grid Container >
 
                     <Grid item xs={12}>
                         <Button onClick={
@@ -76,9 +81,9 @@ class OtherHome extends React.Component {
 
                 <div id="content" border="20">
                         {this.state.loaded && 
-                    <Grid container spacing={3}>
+                    <Grid Container spacing={3}>
 
-                        <Grid item xs={4}>
+                        <Grid border="1" item xs={4}>
                             <h1>Model</h1>
                             <p>{this.state.model}</p>
                         </Grid>

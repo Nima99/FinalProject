@@ -1,4 +1,7 @@
 body {
+  background-color: cornflowerblue;
+  background-image: url('https://wallpaperaccess.com/full/49094.jpg');
+  
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -11,3 +14,4 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
