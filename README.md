@@ -12,3 +12,6 @@ https://files.slack.com/files-pri/THMCEKQRF-FQGB4LLGP/vin_finder.png
 # APIS USED
 https://vpic.nhtsa.dot.gov/api/ -can find make model and parts for each and every car
 https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValuesExtended/1C3LC46B89N589453?format=json for cleaner cut of info
+
+# Heroku
+https://dashboard.heroku.com/apps/vinfinder/deploy/github
