@@ -25,12 +25,12 @@ class OtherHome extends React.Component {
         return (
             <Container maxWidth="sm" border="1" width="500" height="350">
 
-                        <Grid>
+                        <Grid style={{color: "black", backgroundColor: "Cyan", alignContent: "center"}}>
                             <header>VinFinder</header>
                         </Grid>
 
 
-                <Grid style={{color: "red"}} container >
+                <Grid style={{color: "white"}} container >
                     <Grid item xs={12}>
                         <p>Insert Vin Here</p>
                     </Grid>
@@ -58,6 +58,7 @@ class OtherHome extends React.Component {
                                         // console.log(this)
                                         // console.log(value)
                                         this.setState({
+                                            make: value.data.Results[0].Make,
                                             trans: value.data.Results[0].TransmissionStyle,
                                             type: value.data.Results[0].NCSABodyType,
                                             model: value.data.Results[0].Model,
@@ -82,23 +83,27 @@ class OtherHome extends React.Component {
                 <div id="content" border="20">
                         {this.state.loaded && 
                     <Grid Container spacing={3}>
+                        <Grid style={{color: "white"}} border="1" item xs={4}>
+                            <h1>Make</h1>
+                            <p>{this.state.make}</p>
+                        </Grid>
 
-                        <Grid border="1" item xs={4}>
+                        <Grid style={{color: "white"}} border="1" item xs={4}>
                             <h1>Model</h1>
                             <p>{this.state.model}</p>
                         </Grid>
 
-                        <Grid item xs={2}>
+                        <Grid style={{color: "white"}} item xs={2}>
                             <h1>Year</h1>
                             <p>{this.state.year}</p>
 
                         </Grid>
 
-                        <Grid item xs={2}>
+                        <Grid style={{color: "white"}} item xs={2}>
                             <h1>Type</h1>
                             <p>{this.state.type}</p>
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid  style={{color: "white"}} item xs={2}>
                             <h1>Transmission</h1>
                             <p>{this.state.trans||'Not Available'}</p>
 
